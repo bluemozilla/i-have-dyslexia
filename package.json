@@ -1,0 +1,39 @@
+{
+  "name": "i-have-dyslexia",
+  "version": "1.0.0",
+  "description": "Dyslexia-friendly response formatting for AI coding agents and assistants.",
+  "license": "MIT",
+  "author": "bluemozilla",
+  "private": true,
+  "type": "module",
+  "homepage": "https://github.com/bluemozilla/i-have-dyslexia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluemozilla/i-have-dyslexia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bluemozilla/i-have-dyslexia/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "agent-skill",
+    "accessibility",
+    "dyslexia",
+    "readability"
+  ],
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/i-have-dyslexia.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "scripts": {
+    "alias:install": "python3 scripts/install_alias.py",
+    "alias:remove": "python3 scripts/install_alias.py --remove"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "i-have-dyslexia",
+  "version": "1.0.0",
+  "description": "Dyslexia-friendly response formatting with short sentences, plain language, and scannable structure.",
+  "keywords": [
+    "accessibility",
+    "dyslexia",
+    "readability"
+  ],
+  "author": "bluemozilla",
+  "homepage": "https://github.com/bluemozilla/i-have-dyslexia",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "i-have-dyslexia",
+    "shortDescription": "Readable output for dyslexic readers.",
+    "developerName": "bluemozilla",
+    "websiteURL": "https://github.com/bluemozilla/i-have-dyslexia"
+  },
+  "commands": "./commands/dys.md"
+}
