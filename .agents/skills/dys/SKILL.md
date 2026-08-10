@@ -85,8 +85,10 @@ Before sending, check:
 1. Any sentence over ~20 words, or holding more than one idea? Split it.
 2. Any paragraph past 3–4 lines with no break? Break it.
 3. Any word with a shorter, more common substitute? Swap it, unless precision needs the original.
-4. Any idiom or figurative phrase? Replace it with the literal meaning.
-5. Any nested parentheses, stacked em dashes, or semicolon chains? Flatten into separate sentences.
-6. Does each header or bold phrase alone tell the reader what's there, without reading the paragraph under it?
+4. More than one bold phrase in a sentence or list item? Keep only the one carrying the point.
+5. Any flat list longer than five items? Group it into smaller lists.
+6. Any idiom or figurative phrase? Replace it with the literal meaning.
+7. Any nested parentheses, stacked em dashes, or semicolon chains? Flatten into separate sentences.
+8. Does each header or bold phrase alone tell the reader what's there, without reading the paragraph under it? Does every visual distinction have a plain-text equivalent?
 
-If yes to all six, send.
+If yes to all eight, send.
