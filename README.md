@@ -4,59 +4,60 @@
 
 # i-have-dyslexia
 
-**Release:** 1.0
+**Version 1.1.2**
 
-A small Agent Skill that makes AI responses easier to scan and decode for readers with dyslexia.
+AI answers can be useful and still be tiring to read.
 
-It favors short sentences, plain words, frequent breaks, useful headings, and light punctuation. The rules live in one canonical `SKILL.md` so different agent hosts can use the same behavior.
+`i-have-dyslexia` changes the **shape of the answer**. It keeps the meaning, code, numbers, and important details.
 
-**Maintained by [bluemozilla](https://github.com/bluemozilla).**
+The goal is simple: make responses easier to decode and scan.
 
-[Português (Brasil)](README.pt-BR.md) · [Install guide](INSTALL.md)
+[Português (Brasil)](README.pt-BR.md) · [Full install guide](INSTALL.md)
 
-## What it changes
+## What changes
 
 When the skill is active, the assistant should:
 
-- keep **one main idea per sentence**;
-- break dense text into **small, scannable sections**;
-- prefer **plain wording** unless precision needs a technical term;
-- use **lists and headings as landmarks**;
-- leave the mode only after **`stop dyslexia mode`** or **`normal mode`**.
+- use **short sentences** with one main idea;
+- break text into **small sections** with more white space;
+- prefer **plain words** and explain technical terms once;
+- use **lists and clear headings** when they help;
+- keep **code, numbers, quotes, legal, and medical wording exact** when precision matters.
 
-The full behavior is in [`skills/i-have-dyslexia/SKILL.md`](skills/i-have-dyslexia/SKILL.md).
+There is **one skill only**. Its rules live in [`skills/i-have-dyslexia/SKILL.md`](skills/i-have-dyslexia/SKILL.md).
 
-## Quick alias: `\dys` / `/dys`
+## Turn it on
 
-For the shortest activation path, use the quick alias tooling:
+Use the skill name:
 
-```bash
-python3 scripts/install_alias.py
+```text
+/i-have-dyslexia
 ```
 
-This installs a user-level `dys` alias for shared Agent Skills directories and the native command locations used by Claude Code, Gemini CLI, Qwen Code, and Cursor. Kimi can pick up the shared `~/.agents/skills/dys` alias.
+Some apps also provide short commands such as:
 
-**Pi supports the literal `\dys` input directly**, with no alias install needed. It also exposes `/dys`, `/dys on`, and `/dys off`.
-
-Remove the user-level aliases with:
-
-```bash
-python3 scripts/install_alias.py --remove
+```text
+\dys
+/dys
 ```
 
-## Supported hosts
+Those are shortcuts to the same skill. They are not separate skills.
 
-| Host | Packaging in this repo | Typical use |
-| --- | --- | --- |
-| Claude Code | `.claude-plugin/` + `skills/` | Install the marketplace, then run the namespaced skill |
-| Codex | `.codex-plugin/` + `.agents/skills/` | Plugin-ready metadata plus repo-local Agent Skill discovery |
-| Gemini CLI | `gemini-extension.json` + `skills/` | Install as an extension; Gemini discovers bundled skills |
-| Qwen Code | `qwen-extension.json` + `skills/` | Install as an extension; run `/i-have-dyslexia` |
-| Kimi Code CLI | `kimi.plugin.json` + `skills/` | Install as a plugin; run `/skill:i-have-dyslexia` |
-| Pi | `package.json` + TypeScript extension + `skills/` | Persistent toggle with `\dys`, `/dys`, `/i-have-dyslexia`, or `--dyslexia` |
-| Cursor | `.agents/skills/` | Repo-local skill discovery and slash-menu invocation |
+To turn the mode off, say:
 
-## Quick install
+```text
+stop dyslexia mode
+```
+
+or:
+
+```text
+normal mode
+```
+
+## Install
+
+Choose your tool below.
 
 ### Claude Code
 
@@ -72,23 +73,15 @@ python3 scripts/install_alias.py --remove
 gemini extensions install https://github.com/bluemozilla/i-have-dyslexia
 ```
 
-Gemini discovers the bundled Agent Skill when the extension is installed.
-
 ### Qwen Code
 
 ```bash
 qwen extensions install bluemozilla/i-have-dyslexia
 ```
 
-Then run:
-
-```text
-/i-have-dyslexia
-```
+Then use `/i-have-dyslexia`.
 
 ### Kimi Code CLI
-
-Inside Kimi Code:
 
 ```text
 /plugins install https://github.com/bluemozilla/i-have-dyslexia
@@ -102,59 +95,30 @@ Inside Kimi Code:
 pi install git:github.com/bluemozilla/i-have-dyslexia
 ```
 
-Then use the short alias:
-
-```text
-\dys
-```
-
-The slash form also works:
-
-```text
-/dys
-```
-
-The original command remains available:
-
-```text
-/i-have-dyslexia
-```
-
-Or start with it enabled:
-
-```bash
-pi --dyslexia
-```
+Pi supports `\dys`, `/dys`, `/i-have-dyslexia`, and `--dyslexia`.
 
 ### Cursor and other Agent Skills hosts
 
-The repo includes `.agents/skills/i-have-dyslexia/SKILL.md` for project-level discovery. For a personal/global installation, copy the same skill folder to the host's user-level skills directory.
-
-See [`INSTALL.md`](INSTALL.md) for details and host-specific notes.
-
-## Persistence is host-dependent
-
-The `SKILL.md` tells the assistant to keep the mode active until an exit phrase is used. A host may still re-evaluate on-demand skills on later turns.
-
-**Pi is the exception in this repo:** its extension stores the mode state in the session and injects the rules on every turn while enabled.
-
-For other hosts, persistence depends on how that host manages loaded skills and conversation context.
-
-## Repository layout
+The skill is in:
 
 ```text
-skills/i-have-dyslexia/SKILL.md       canonical skill
-.agents/skills/i-have-dyslexia/       repo-local Agent Skill mirror
-.claude-plugin/                       Claude Code manifests
-.codex-plugin/                        Codex plugin manifest
-gemini-extension.json                 Gemini CLI extension manifest
-qwen-extension.json                   Qwen Code extension manifest
-kimi.plugin.json                      Kimi Code plugin manifest
-extensions/i-have-dyslexia.ts         Pi persistent-mode extension
-commands/dys.md + commands/dys.toml       short command aliases for compatible hosts
-scripts/install_alias.py                  optional user-level alias installer
+skills/i-have-dyslexia/
 ```
+
+Copy that folder to the skills directory supported by your app.
+
+See [INSTALL.md](INSTALL.md) for host-specific details.
+
+## A note about persistence
+
+The skill asks the assistant to keep dyslexia mode active until you turn it off.
+
+Some apps may reload skills differently between turns.
+
+**Pi stores the mode in the session**, so it stays active there until you disable it.
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT. See [LICENSE](LICENSE).
+
+Maintained by [bluemozilla](https://github.com/bluemozilla).

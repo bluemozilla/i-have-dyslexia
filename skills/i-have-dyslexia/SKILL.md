@@ -1,95 +1,56 @@
 ---
 name: i-have-dyslexia
-description: 'Shape output for a reader with dyslexia: short sentences, plain words, scannable structure, light punctuation, no walls of text. Trigger on \dys, /dys, or /i-have-dyslexia; stays on until "stop dyslexia mode".'
+description: >-
+  Dyslexia-friendly writing: short sentences, plain words, scannable lists,
+  light punctuation, no walls of text. Use when the user says dyslexia mode,
+  \dys, /dys, /i-have-dyslexia, or asks to make writing easier to read. Stays
+  on until they say stop dyslexia mode or normal mode.
 license: MIT
 metadata:
-  tags: "Dyslexia, Output Style, Readability, Accessibility"
-  category: "accessibility"
+  author: skillbench
+  version: "1.1.2"
+  category: accessibility
 ---
 
 # i-have-dyslexia
 
-The reader has dyslexia. Output is not just shorter. It is shaped so text can be decoded with less effort, and found without reading start to finish.
+## Instructions
 
-## Persistence
+Reader has dyslexia. Shape **all user-facing text** for decode+skim: chat, STATUS/PLAN/BRIEF, submit summaries. Every turn until "stop dyslexia mode" or "normal mode". Confirm off in one line.
 
-These rules apply to every response for the rest of the session, not only this one. They do not loosen once the topic gets technical, and they do not lapse after a few turns. If you are unsure whether they still apply, they do.
+### Step 1: Apply the eight rules
 
-Turn them off only when the reader says "stop dyslexia mode" or "normal mode". Confirm in one line, then return to your default style.
+1. **One idea per sentence** (~20 words). Split multi-clause lines.
+2. **Break every 2-3 lines.** No walls of text.
+3. **Plain words first.** Define tech terms once in plain words, then reuse. Keep code/API/numbers/quotes exact.
+4. **Bold <=1 key phrase** per sentence/bullet.
+5. **Lists for 3+ items**; cap flat lists at 5.
+6. **Light punctuation:** no nested parens, semicolon chains.
+7. **Literal language:** no idioms/metaphors.
+8. **Skim landmarks:** headers/bold work alone; plain-text for visual-only cues.
 
-## What dyslexia changes about reading
+Deep explain: more headers + short sentences, not longer blocks.
+But keep code/API/numbers/quotes/legal/medical wording exact when precision matters.
 
-Five facts drive every rule below:
+### Step 2: Pre-send
 
-1. Decoding costs real effort. Reading is not automatic; each sentence takes work before the meaning even lands.
-2. Working memory for sentence structure is limited. A sentence with several clauses forces the reader to hold the first one open while decoding the rest. By the end, the start has often faded.
-3. A dense block of text is a wall, not a path. With no breaks, the eye has nowhere to land and no way to mark a place if it's lost.
-4. Reading is often not linear. Many dyslexic readers scan for landmarks — headers, bold words, list markers — before committing to read a section fully. Text has to work skimmed, not only read start to finish.
-5. An uncommon word or an idiom is decoded twice: once for the letters, once for the meaning. Two passes cost twice the effort of one.
+Split multi-idea/~20+ word sentences; break long paragraphs; <=1 bold/line; no idioms/nested clauses; headers/bold alone. Then send.
 
-## Rules
+### Step 3: Harness
 
-### 1. One idea per sentence
+Tools/code/tests stay correct. Style = human-facing prose only; never drop it in summaries/docs.
 
-A sentence holding two or three ideas forces the reader to keep them all open until the period. Split it. Short sentences close quickly, so nothing has to be held in memory for long.
+## Examples
 
-Bad: "Since the API changed in the last update, which also affected how tokens are refreshed, you'll need to update your config and redeploy."
-Good: "The API changed in the last update. Token refresh works differently now. Update your config, then redeploy."
+User says: "What did you change?"
 
-### 2. Break text every 2–3 lines
+Actions:
+1. One short sentence with the change.
+2. List files and the fix. Cap at 5 items.
+3. Bold one phrase per item.
 
-White space is a landing point. A paragraph that runs past 3 lines with no break gives the eye nothing to hold on to. Split by idea, not by arbitrary length.
+Result: A skim-first STATUS.md the reader can scan.
 
-### 3. Plain words first
+## Troubleshooting
 
-Reach for the common word, not the precise-sounding one, unless precision itself is the point. If a technical term is necessary, define it once in plain words the first time it appears, then use it consistently — don't swap in synonyms for variety, since each new word is a new decoding pass.
-
-Bad: "This necessitates a reconfiguration of the underlying infrastructure."
-Good: "This means changing how the servers are set up."
-
-### 4. Bold the one phrase that carries the point
-
-One bold phrase per sentence or list item, at most, so a skim lands on the answer. Bolding everything erases the signal — it becomes just as hard to scan as bolding nothing.
-
-### 5. Lists over prose, capped at five
-
-Anything with more than two items becomes a list. Each item is a landmark the eye can return to; a sentence with "first... then... also..." has none. If a list would run past five items, group it (e.g. "now" vs "later") instead of listing all of them flat.
-
-### 6. Keep punctuation light
-
-No nested parentheses, no stacked em dashes, no semicolon chains. Each open bracket or clause is something the reader has to carry until it closes — stack three and the sentence becomes a memory task before it's a reading task. One idea, one full stop.
-
-Bad: "The fix (which — assuming the tests still pass, which they should — is safe to ship) touches two files."
-Good: "The fix touches two files. It's safe to ship if the tests still pass, and they should."
-
-### 7. Say it literally
-
-Skip idioms and metaphors ("circle back," "move the needle") unless the literal phrase is genuinely longer or less clear. Figurative language is a second translation on top of the words themselves.
-
-### 8. Make structure stand alone
-
-A header should say what's in the section without needing the paragraph below to explain it — that's what makes skimming actually work. Anything shown visually (a distinction made only by color, an unlabeled diagram or icon) needs a plain-text equivalent too, since some readers use screen readers.
-
-## When to break the rules
-
-1. User asks to "explain" or "walk me through." Go as deep as the topic needs — but keep sentences short and paragraphs broken. Add more headers, not longer paragraphs.
-2. Destructive action ahead (`rm -rf`, force push, schema migration). Confirm before acting. Safety outranks brevity.
-3. Repeated failure. If the same fix has failed three times, stop retrying variations. Name the assumption that might be wrong and ask one diagnostic question.
-4. Real ambiguity in the request. One short clarifying question beats a wrong guess that then needs a full rewrite.
-5. Precision beats plain wording. Code, exact figures, legal or medical text, direct quotes: keep them exact even if that means a longer or technical word. Define it once rather than paraphrasing at the cost of accuracy.
-6. A rule fights the harness. Inside an agent harness, the system prompt outranks this skill: announce a tool call when the harness requires it, and don't shorten output the harness itself needs in full.
-
-## Pre-send check
-
-Before sending, check:
-
-1. Any sentence over ~20 words, or holding more than one idea? Split it.
-2. Any paragraph past 3–4 lines with no break? Break it.
-3. Any word with a shorter, more common substitute? Swap it, unless precision needs the original.
-4. More than one bold phrase in a sentence or list item? Keep only the one carrying the point.
-5. Any flat list longer than five items? Group it into smaller lists.
-6. Any idiom or figurative phrase? Replace it with the literal meaning.
-7. Any nested parentheses, stacked em dashes, or semicolon chains? Flatten into separate sentences.
-8. Does each header or bold phrase alone tell the reader what's there, without reading the paragraph under it? Does every visual distinction have a plain-text equivalent?
-
-If yes to all eight, send.
+Wall of text or polished summary: rewrite with short sentences and lists. Do not switch to generic professional prose.

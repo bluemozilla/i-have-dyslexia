@@ -4,59 +4,60 @@
 
 # i-have-dyslexia
 
-**Versão:** 1.0
+**Versão 1.1.2**
 
-Uma Agent Skill pequena para deixar respostas de IA mais fáceis de ler e escanear para pessoas com dislexia.
+Uma resposta de IA pode ser útil e ainda assim cansar na hora de ler.
 
-Ela prioriza frases curtas, palavras simples, quebras frequentes, títulos úteis e pontuação leve. As regras ficam em um único `SKILL.md` canônico, usado pelas integrações do repositório.
+`i-have-dyslexia` muda o **formato da resposta**. O conteúdo importante continua lá.
 
-**Mantido por [bluemozilla](https://github.com/bluemozilla).**
+A ideia é simples: deixar o texto mais fácil de decodificar e escanear.
 
-[English](README.md) · [Instalação](INSTALL.md)
+[English](README.md) · [Guia completo de instalação](INSTALL.md)
 
 ## O que muda
 
 Quando a skill está ativa, o assistente deve:
 
-- manter **uma ideia principal por frase**;
-- dividir texto denso em **blocos pequenos e escaneáveis**;
-- preferir **palavras comuns** quando isso não reduz a precisão;
-- usar **listas e títulos como pontos de referência**;
-- sair do modo somente após **`stop dyslexia mode`** ou **`normal mode`**.
+- usar **frases curtas** com uma ideia principal;
+- dividir o texto em **blocos pequenos** com mais espaço;
+- preferir **palavras simples** e explicar termos técnicos uma vez;
+- usar **listas e títulos claros** quando ajudam;
+- manter **código, números, citações e texto legal ou médico exatos** quando a precisão importa.
 
-As regras completas estão em [`skills/i-have-dyslexia/SKILL.md`](skills/i-have-dyslexia/SKILL.md).
+Existe **uma única skill**. As regras ficam em [`skills/i-have-dyslexia/SKILL.md`](skills/i-have-dyslexia/SKILL.md).
 
-## Atalho rápido: `\dys` / `/dys`
+## Como ativar
 
-Para instalar o alias curto no seu usuário:
+Use o nome da skill:
 
-```bash
-python3 scripts/install_alias.py
+```text
+/i-have-dyslexia
 ```
 
-O instalador cria o alias `dys` nos diretórios compartilhados de Agent Skills e nos locais de comandos usados por Claude Code, Gemini CLI, Qwen Code e Cursor. O Kimi também consegue usar o alias compartilhado em `~/.agents/skills/dys`.
+Alguns apps também oferecem atalhos como:
 
-**No Pi, `\dys` funciona diretamente**, sem instalar alias extra. Também existem `/dys`, `/dys on` e `/dys off`.
-
-Para remover os aliases do usuário:
-
-```bash
-python3 scripts/install_alias.py --remove
+```text
+\dys
+/dys
 ```
 
-## Integrações preparadas
+Esses atalhos chamam a mesma skill. Eles não são skills separadas.
 
-| Host | Arquivos neste repositório |
-| --- | --- |
-| Claude Code | `.claude-plugin/` e `skills/` |
-| Codex | `.codex-plugin/` e `.agents/skills/` |
-| Gemini CLI | `gemini-extension.json` e `skills/` |
-| Qwen Code | `qwen-extension.json` e `skills/` |
-| Kimi Code CLI | `kimi.plugin.json` e `skills/` |
-| Pi | `package.json`, extensão TypeScript e `skills/` |
-| Cursor | `.agents/skills/` |
+Para desligar o modo, diga:
 
-## Instalação rápida
+```text
+stop dyslexia mode
+```
+
+ou:
+
+```text
+normal mode
+```
+
+## Instalação
+
+Escolha a ferramenta que você usa.
 
 ### Claude Code
 
@@ -78,15 +79,9 @@ gemini extensions install https://github.com/bluemozilla/i-have-dyslexia
 qwen extensions install bluemozilla/i-have-dyslexia
 ```
 
-Depois:
-
-```text
-/i-have-dyslexia
-```
+Depois use `/i-have-dyslexia`.
 
 ### Kimi Code CLI
-
-Dentro do Kimi Code:
 
 ```text
 /plugins install https://github.com/bluemozilla/i-have-dyslexia
@@ -100,44 +95,30 @@ Dentro do Kimi Code:
 pi install git:github.com/bluemozilla/i-have-dyslexia
 ```
 
-Ative rapidamente com:
-
-```text
-\dys
-```
-
-Ou use a forma com barra:
-
-```text
-/dys
-```
-
-O comando original continua disponível:
-
-```text
-/i-have-dyslexia
-```
-
-Ou inicie já ativo:
-
-```bash
-pi --dyslexia
-```
+No Pi funcionam `\dys`, `/dys`, `/i-have-dyslexia` e `--dyslexia`.
 
 ### Cursor e outros hosts de Agent Skills
 
-O repositório contém `.agents/skills/i-have-dyslexia/SKILL.md` para descoberta dentro do projeto. Para uso pessoal/global, copie essa pasta para o diretório de skills do seu host.
+A skill fica em:
 
-Veja [`INSTALL.md`](INSTALL.md) para os detalhes.
+```text
+skills/i-have-dyslexia/
+```
 
-## Persistência depende do host
+Copie essa pasta para o diretório de skills aceito pelo seu app.
 
-O `SKILL.md` manda o assistente manter o modo até uma frase de saída. Mesmo assim, alguns hosts podem reavaliar skills sob demanda em cada turno.
+Veja [INSTALL.md](INSTALL.md) para detalhes de cada ferramenta.
 
-**No Pi, o repositório reforça a persistência por código.** A extensão salva o estado da sessão e injeta as regras em cada turno enquanto o modo estiver ligado.
+## Sobre a persistência
 
-Nos outros hosts, a persistência depende da forma como o cliente mantém skills e contexto da conversa.
+A skill pede para o assistente manter o modo ativo até você desligar.
+
+Alguns apps podem recarregar skills de formas diferentes entre mensagens.
+
+**No Pi, o estado fica salvo na sessão**, então o modo continua ativo até você desativar.
 
 ## Licença
 
-MIT. Veja [`LICENSE`](LICENSE).
+MIT. Veja [LICENSE](LICENSE).
+
+Mantido por [bluemozilla](https://github.com/bluemozilla).
